@@ -23,24 +23,20 @@ const renderPointUnidad = (position, title) => {
         position,
         map,
         draggable: false,
-        icon: 'pointer_unidad.png',
+        icon: '/sockets/pointer_unidad.png',
         title,
         animation: google.maps.Animation.DROP
     });
 }
 
 const renderPointsMap = (data) => {
+    let contador = 0;
     for (const item in data) {
         let obj = data[item];
         //let title = getUnidadCoords(res.datos[item].fk_id_activo);
-        let contador = 0;
-        for (const key in obj.json_coordenadas) {
-            let dateCoords =  new Date(key);
-            console.log(dateCoords);
-            let jsonCoords = JSON.parse(obj.json_coordenadas[key]);
-            let position = new google.maps.LatLng(jsonCoords[0], jsonCoords[1]);
-            renderPointUnidad(position, `coords${contador}`);
-            contador++;
-        }
+        let jsonCoords = JSON.parse(obj.latLng);
+        let position = new google.maps.LatLng(jsonCoords[0], jsonCoords[1]);
+        renderPointUnidad(position, `coords${contador}`);
+        contador++;
     }
 }
